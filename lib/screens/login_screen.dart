@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoom_clone/widgets/custom_button.dart';
 
 class LonginScreen extends StatefulWidget {
   const LonginScreen({Key? key}) : super(key: key);
@@ -11,16 +12,27 @@ class _LonginScreenState extends State<LonginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const Text(
-            'Start or join a meeting',
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Start or join a meeting',
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 38.0),
+              child: Image.asset('assets/images/onboarding.jpg'),
+            ),
+            CustomButton(
+              text: 'Google Sign In',
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
     );
   }
