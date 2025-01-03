@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:zoom_clone/utils/utils.dart';
 
+
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -11,16 +12,22 @@ class AuthMethods {
   Future<bool> signInWithGoogle(BuildContext context) async {
     bool res = false;
     try {
+      // Trigger Google Sign-In
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        // Sign-In aborted by user
+        return false;
+      }
 
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      // Obtain authentication details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
+      // Create a new credential
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
-
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
@@ -37,8 +44,10 @@ class AuthMethods {
 
         res = true;
       }
-    } on FirebaseException catch (e) {
-      showSnackBar(context, e.message!);
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context, "An unexpected error occurred.");
+      }
       res = false;
     }
     return res;

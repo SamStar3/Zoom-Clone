@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:zoom_clone/resources/auth_methods.dart';
 import 'package:zoom_clone/widgets/custom_button.dart';
 
-class LonginScreen extends StatefulWidget {
-  const LonginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LonginScreen> createState() => _LonginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LonginScreenState extends State<LonginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final AuthMethods _authMethods = AuthMethods();
 
   @override
@@ -21,7 +21,7 @@ class _LonginScreenState extends State<LonginScreen> {
           children: [
             const Text(
               'Start or join a meeting',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
